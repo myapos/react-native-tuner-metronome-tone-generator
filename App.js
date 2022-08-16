@@ -5,7 +5,7 @@ import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import useCustomIcons from "./config/useCustomIcons";
+import useCustomIcons from "./hooks/useCustomIcons";
 
 import Tuner from "./screens/tuner/components/Tuner";
 import Metronome from "./screens/metronome/components/Metronome";
