@@ -13,6 +13,7 @@ import ToneGenerator from "./screens/toneGenerator/components/ToneGenerator";
 
 import configFontAwesomeIcons from "./config/configFontAwesomeIcons";
 import { Provider } from "react-redux";
+import tabBarIcon from "./utils/tabBarIcon";
 import { store } from "./store/store";
 
 const Tab = createBottomTabNavigator();
@@ -20,13 +21,11 @@ const Tab = createBottomTabNavigator();
 configFontAwesomeIcons();
 
 export default function App() {
-  const [fontsLoaded, Icon] = useCustomIcons();
+  const [fontsLoaded] = useCustomIcons();
 
   if (!fontsLoaded) {
     return null;
   }
-
-  console.log("test");
 
   return (
     <>
@@ -35,24 +34,8 @@ export default function App() {
         <NavigationContainer>
           <Tab.Navigator
             screenOptions={({ route }) => ({
-              tabBarIcon: ({ focused, color, size }) => {
-                let iconName = "";
-
-                const iconOptions = {
-                  size,
-                  color,
-                };
-
-                if (route.name === "Tuner") {
-                  iconName = "fork";
-                } else if (route.name === "Metronome") {
-                  iconName = "metronome";
-                } else if (route.name === "ToneGenerator") {
-                  iconName = "notes";
-                }
-
-                return <Icon name={iconName} {...iconOptions} />;
-              },
+              tabBarIcon: ({ focused, color, size }) =>
+                tabBarIcon({ route, focused, color, size }),
               tabBarActiveTintColor: "tomato",
               tabBarInactiveTintColor: "gray",
             })}
