@@ -1,9 +1,11 @@
+// @ts-nocheck
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Ionicons from "@expo/vector-icons/Ionicons";
+
+import useCustomIcons from "./config/useCustomIcons";
 
 import Tuner from "./screens/tuner/components/Tuner";
 import Metronome from "./screens/metronome/components/Metronome";
@@ -16,6 +18,12 @@ const Tab = createBottomTabNavigator();
 configFontAwesomeIcons();
 
 export default function App() {
+  const [fontsLoaded, Icon] = useCustomIcons();
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
     <>
       <StatusBar style="dark" />
@@ -23,20 +31,22 @@ export default function App() {
         <Tab.Navigator
           screenOptions={({ route }) => ({
             tabBarIcon: ({ focused, color, size }) => {
-              let iconName;
+              let iconName = "";
+
+              const iconOptions = {
+                size,
+                color,
+              };
 
               if (route.name === "Tuner") {
-                iconName = focused
-                  ? "information-circle"
-                  : "information-circle-outline";
+                iconName = "fork";
               } else if (route.name === "Metronome") {
-                iconName = focused ? "list" : "list-outline";
+                iconName = "metronome";
               } else if (route.name === "ToneGenerator") {
-                iconName = focused ? "musical-notes" : "musical-notes-outline";
+                iconName = "notes";
               }
 
-              // You can return any component that you like here!
-              return <Ionicons name={iconName} size={size} color={color} />;
+              return <Icon name={iconName} {...iconOptions} />;
             },
             tabBarActiveTintColor: "tomato",
             tabBarInactiveTintColor: "gray",
