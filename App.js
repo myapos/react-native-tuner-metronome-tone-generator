@@ -12,6 +12,8 @@ import Metronome from "./screens/metronome/components/Metronome";
 import ToneGenerator from "./screens/toneGenerator/components/ToneGenerator";
 
 import configFontAwesomeIcons from "./config/configFontAwesomeIcons";
+import { Provider } from "react-redux";
+import { store } from "./store/store";
 
 const Tab = createBottomTabNavigator();
 
@@ -24,39 +26,43 @@ export default function App() {
     return null;
   }
 
+  console.log("test");
+
   return (
     <>
       <StatusBar style="dark" />
-      <NavigationContainer>
-        <Tab.Navigator
-          screenOptions={({ route }) => ({
-            tabBarIcon: ({ focused, color, size }) => {
-              let iconName = "";
+      <Provider store={store}>
+        <NavigationContainer>
+          <Tab.Navigator
+            screenOptions={({ route }) => ({
+              tabBarIcon: ({ focused, color, size }) => {
+                let iconName = "";
 
-              const iconOptions = {
-                size,
-                color,
-              };
+                const iconOptions = {
+                  size,
+                  color,
+                };
 
-              if (route.name === "Tuner") {
-                iconName = "fork";
-              } else if (route.name === "Metronome") {
-                iconName = "metronome";
-              } else if (route.name === "ToneGenerator") {
-                iconName = "notes";
-              }
+                if (route.name === "Tuner") {
+                  iconName = "fork";
+                } else if (route.name === "Metronome") {
+                  iconName = "metronome";
+                } else if (route.name === "ToneGenerator") {
+                  iconName = "notes";
+                }
 
-              return <Icon name={iconName} {...iconOptions} />;
-            },
-            tabBarActiveTintColor: "tomato",
-            tabBarInactiveTintColor: "gray",
-          })}
-        >
-          <Tab.Screen name="Tuner" component={Tuner} />
-          <Tab.Screen name="Metronome" component={Metronome} />
-          <Tab.Screen name="ToneGenerator" component={ToneGenerator} />
-        </Tab.Navigator>
-      </NavigationContainer>
+                return <Icon name={iconName} {...iconOptions} />;
+              },
+              tabBarActiveTintColor: "tomato",
+              tabBarInactiveTintColor: "gray",
+            })}
+          >
+            <Tab.Screen name="Tuner" component={Tuner} />
+            <Tab.Screen name="Metronome" component={Metronome} />
+            <Tab.Screen name="ToneGenerator" component={ToneGenerator} />
+          </Tab.Navigator>
+        </NavigationContainer>
+      </Provider>
     </>
   );
 }
