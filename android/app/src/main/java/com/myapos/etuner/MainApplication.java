@@ -21,6 +21,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import com.rnnativemodulesdemo.*;
+import com.reactnativetonegenerator.*;
 
 public class MainApplication extends Application implements ReactApplication {
   private final ReactNativeHost mReactNativeHost = new ReactNativeHostWrapper(
@@ -38,6 +39,7 @@ public class MainApplication extends Application implements ReactApplication {
       // Packages that cannot be autolinked yet can be added manually here, for example:
       // packages.add(new MyReactNativePackage());
       packages.add(new ReactOnePackage());
+      packages.add(new ToneGeneratorPackage());
       return packages;
     }
 

@@ -4,15 +4,23 @@ import { Text, View, Button, NativeModules } from "react-native";
 // "ReactOneCustomMethod" it's the same value returned by getName()
 // from ReactOneCustomMethod
 // const { RNDtmf } = NativeModules;
-function play() {
-  console.log("play");
-}
 
 const Tuner = ({ navigation }) => {
-  const { ReactOneCustomMethod } = NativeModules;
+  const { ReactOneCustomMethod, ToneGenerator } = NativeModules;
   const [id, setId] = useState("Press the button to get The ID");
 
-  console.log("ReactOneCustomMethod", ReactOneCustomMethod);
+  function play() {
+    console.log("play");
+    // ToneGenerator.configureTone("TONE_CDMA_ABBR_ALERT", 20);
+    ToneGenerator.startTone(ToneGenerator.DTMF_0, 3000);
+  }
+
+  console.log(
+    "ReactOneCustomMethod",
+    ReactOneCustomMethod,
+    " ToneGenerator",
+    ToneGenerator
+  );
   const getId = () => {
     ReactOneCustomMethod.getPhoneID()
       .then((res) => {
